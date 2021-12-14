@@ -1,6 +1,9 @@
 #ifndef FDF_H
 # define FDF_H
+#define MAX(a, b) (a > b ? a : b)
+#define MOD(a) ((a < 0) ?  -a : a)
 
+#include <math.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -29,16 +32,24 @@ typedef struct s_point
 {
     int height;
     int color;
+    float x;
+    float y;
 } t_point;
 
 typedef struct s_fdf
 {
-    int x;
-    int y;
+    int     x;
+    int     y;
+    float   rotation;
     t_point **points;
-    int grid_len;
-    void *mlx_ptr;
-    void *win_ptr;
+    int     grid_len;
+    void    *mlx_ptr;
+    void    *win_ptr;
+    double  lean_x;
+    double  lean_y;
+    int     shift_x;
+    int     shift_y;
+    int     zoom;
 } t_fdf;
 
 void    read_file(t_fdf *fdf, char *save);

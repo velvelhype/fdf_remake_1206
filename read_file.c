@@ -36,7 +36,7 @@ int     count_ordinary(char   *save)
 
 int     char_atoi(char a, int height)
 {
-    printf("c_a:: c%c h:%d\n", a, height);
+    // printf("c_a:: c%c h:%d\n", a, height);
     a = a - 48;
     height = height * 10 + a;
 
@@ -52,7 +52,7 @@ int    get_height(char *save, int *bookmark)
         (*bookmark)++;
     while(ft_isdigit(*(save + *bookmark)))
     {
-        printf("g_h c:: %c b::%d\n", *(save + *bookmark), *bookmark);
+        // printf("g_h c:: %c b::%d\n", *(save + *bookmark), *bookmark);
         height = char_atoi(*(save + *bookmark), height);
         (*bookmark)++;
     }
@@ -84,7 +84,9 @@ void    make_matrix(t_fdf *fdf, char* save)
         {
             printf("m_m y:%d, x:%d bm:%d\n", y_count, x_count, bookmark);
             (fdf->points)[y_count][x_count].height = get_height(save, &bookmark);
-                x_count++;
+            (fdf->points)[y_count][x_count].x =  x_count;
+            (fdf->points)[y_count][x_count].y =  y_count;
+            x_count++;
         }
         y_count++;
         x_count = 0;

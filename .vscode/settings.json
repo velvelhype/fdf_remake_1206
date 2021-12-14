@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "fdf.h": "c"
+        "fdf.h": "c",
+        "algorithm": "c",
+        "type_traits": "c"
     }
 }

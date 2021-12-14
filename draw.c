@@ -1,60 +1,68 @@
 #include "fdf.h"
 
-void    draw_right(t_fdf *fdf, int x, int y)
+void    make_isometric(t_point *dot, t_fdf *fdf)
 {
-    int offset = 0;
-    while(offset < fdf->grid_len)
-    {
-        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr,
-         (x * fdf->grid_len) + offset,
-          y * fdf->grid_len,
-           1000);
-        offset++;
-    }
+    dot->x = (dot->x - dot->y) * cos(fdf->rotation);
+    dot->y = (dot->x + dot->y) * sin(fdf->rotation) - dot->height;
 }
 
-void    draw_under(t_fdf *fdf, int x, int y)
+void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 {
-    float lean_y = 0.5;
+    //make bigger
+    dot_a.x *= fdf->zoom;
+    dot_b.x *= fdf->zoom;
+    dot_a.y *= fdf->zoom;
+    dot_b.y *= fdf->zoom;
 
-    int offset = 0;
-    while(offset < fdf->grid_len)
+    //make isometrical
+    fdf->rotation = 1;
+    make_isometric(&dot_a, fdf);
+    make_isometric(&dot_b, fdf);
+
+    //add positional shift to points for viewablility
+    dot_a.x += fdf->shift_x;
+    dot_b.x += fdf->shift_x;
+    dot_a.y += fdf->shift_y;
+    dot_b.y += fdf->shift_y;
+
+    //decide how carafully go to b_point
+    float x_step = dot_b.x - dot_a.x;
+    float y_step = dot_b.y - dot_a.y;
+    int max = MAX(MOD(x_step), MOD(y_step));
+    x_step /= max; 
+    y_step /= max;
+
+    // draw line by step
+    while((int)(dot_a.x - dot_b.x) || (int)(dot_a.y - dot_b.y))
     {
-        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, 
-        x * fdf->grid_len,
-         ((y * fdf->grid_len) + offset) * lean_y,
-          1000);
-        // x * fdf->grid_len, (y * fdf->grid_len) + offset, 1000);
-        offset++;
+        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, 1000);
+        dot_a.x += x_step;
+        dot_a.y += y_step;
     }
 }
 
 void    draw(t_fdf *fdf)
 {
-
-
     printf("let's draw\n");
-    fdf->mlx_ptr = mlx_init();
-    fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1000, 1000, "Ikari Window");
 
     fdf->grid_len = 50;
+    fdf->lean_x = 0.6;
+    fdf->lean_y = 0.6;
 
     int x = 0;
-    int y = 0;
+    int y = 0;    
     while(y < fdf->y)
     {
         while(x < fdf->x)
         {
-            printf("y: %d x: %d\n", y, x);
-            if(x != fdf->x -1)
-                draw_right(fdf, x, y);
-            if(y != fdf->y -1)
-                draw_under(fdf, x, y);
+            // printf("y: %f x: %f\n", y, x);
+            if(x < fdf->x - 1)
+                draw_line(fdf, fdf->points[y][x], fdf->points[y][x + 1]);
+            if(y < fdf->y - 1)
+                draw_line(fdf, fdf->points[y][x], fdf->points[y + 1][x]);
             x++;
         }
         x = 0;
         y++;  
     }
-
-    mlx_loop(fdf->mlx_ptr);
 }
