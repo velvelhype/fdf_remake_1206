@@ -54,6 +54,7 @@ int main(int argc, char **argv)
         i++;
         read_ret = read(fd, buf, 1);
     }
+    save[i] = '\0';
     printf("save is \n %s\n", save);
     read_str_to_t_fdf(&fdf, save);
     draw(&fdf);

@@ -59,12 +59,44 @@ int    get_height(char *save, int *bookmark)
     return  height;
 }
 
+int     char_xtoi(char a, int color)
+{
+    // printf("c_a:: c%c h:%d\n", a, height);
+    if(a == 'A')
+        a = 10;
+    else if(a == 'B')
+        a = 11;
+    else if(a == 'C')
+        a = 12;
+    else if(a == 'D')
+        a = 13;
+    else if(a == 'E')
+        a = 14;
+    else if(a == 'F')
+        a = 15;
+    else
+        a = a - 48;
+    color = color * 16 + a;
+
+    return (color);
+}
+
 int    get_color(char *save, int *bookmark)
 {
-    while(*(save + *bookmark) != ' ')
-        (*bookmark)++;
+    int i;
 
-    return  (0);
+    *bookmark += 3;
+    i = 0;
+    while(*(save + *bookmark) != ' ' &&
+    *(save + *bookmark) != '\n' &&
+    *(save + *bookmark) != '\0')
+    {
+        printf("watch %c\n", *(save + *bookmark));
+        i = char_xtoi(*(save + *bookmark), i);
+        (*bookmark)++;
+    }
+
+    return  (i);
 }
 
 void    make_matrix(t_fdf *fdf, char* save)
@@ -98,7 +130,7 @@ void    make_matrix(t_fdf *fdf, char* save)
                 (fdf->points)[y_count][x_count].color = get_color(save, &bookmark);
             }
             else
-                (fdf->points)[y_count][x_count].color == 0xFFFFFF;
+                (fdf->points)[y_count][x_count].color = 0xFFFFFF;
             (fdf->points)[y_count][x_count].x = x_count;
             (fdf->points)[y_count][x_count].y = y_count;
             x_count++;

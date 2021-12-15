@@ -52,6 +52,13 @@ typedef struct s_fdf
     int     zoom;
 } t_fdf;
 
+typedef struct s_color
+{
+	int red;
+	int green;
+	int blue;
+} t_color;
+
 void    read_str_to_t_fdf(t_fdf *fdf, char *save);
 
 //checks

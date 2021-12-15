@@ -6,8 +6,54 @@ void    make_isometric(t_point *dot, t_fdf *fdf)
     dot->y = (dot->x + dot->y) * sin(fdf->rotation) - dot->height;
 }
 
+t_color rgb_open(int color)
+{
+    t_color back;
+
+    back.red = color / (256 * 256);
+    color -= back.red * 256 * 256;
+    back.green = color / (256);
+    color -= back.green * 256;
+    back.blue = color;
+
+    return back;
+}
+
+int   rgb_zip(t_color col)
+{
+	int ret;
+	ret = 0;
+	ret += col.red * 256 * 256;
+	ret += col.green * 256;
+	ret += col.blue;
+
+	return (ret);
+}
+
+int     make_color_step(int   a_color, int  b_color, int max)
+{
+    t_color col_step;
+    t_color open_a = rgb_open(a_color);
+    t_color open_b = rgb_open(b_color);
+
+    if (max == 0)
+        max = 1;
+    int red_step = open_b.red - open_a.red;
+    int blue_step = open_b.blue - open_a.blue;
+    int green_step = open_b.green - open_a.green;
+    col_step.red = red_step / max;
+    col_step.green = green_step / max;
+    col_step.blue = blue_step / max;
+
+    return  (rgb_zip(col_step));
+}
+
 void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 {
+    //make dramatic
+    dot_a.height *= 10;
+    dot_b.height *= 10;
+
     //make bigger
     dot_a.x *= fdf->zoom;
     dot_b.x *= fdf->zoom;
@@ -30,6 +76,7 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
     int max = MAX(MOD(x_step), MOD(y_step));
     x_step /= max; 
     y_step /= max;
+    int color_step = make_color_step(dot_a.color, dot_b.color, max);
 
     // draw line by step
     while((int)(dot_a.x - dot_b.x) || (int)(dot_a.y - dot_b.y))
@@ -37,13 +84,12 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
         mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, dot_a.color);
         dot_a.x += x_step;
         dot_a.y += y_step;
+        dot_a.color += color_step;
     }
 }
 
 void    draw(t_fdf *fdf)
 {
-    printf("let's draw\n");
-
     fdf->grid_len = 50;
     fdf->lean_x = 0.6;
     fdf->lean_y = 0.6;
