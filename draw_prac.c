@@ -11,6 +11,5 @@ int main()
     {
         mlx_pixel_put(mlx_ptr, win_ptr, x, 100, 1000);
     }
-
     mlx_loop(mlx_ptr);
 }

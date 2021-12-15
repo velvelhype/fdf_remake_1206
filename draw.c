@@ -15,7 +15,6 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
     dot_b.y *= fdf->zoom;
 
     //make isometrical
-    fdf->rotation = 1;
     make_isometric(&dot_a, fdf);
     make_isometric(&dot_b, fdf);
 
@@ -35,7 +34,7 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
     // draw line by step
     while((int)(dot_a.x - dot_b.x) || (int)(dot_a.y - dot_b.y))
     {
-        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, 1000);
+        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, 0x00FF00);
         dot_a.x += x_step;
         dot_a.y += y_step;
     }

@@ -52,7 +52,7 @@ typedef struct s_fdf
     int     zoom;
 } t_fdf;
 
-void    read_file(t_fdf *fdf, char *save);
+void    read_str_to_t_fdf(t_fdf *fdf, char *save);
 
 //checks
 void    printf_point_matrix(t_fdf   *fdf);

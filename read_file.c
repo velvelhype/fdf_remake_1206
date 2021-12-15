@@ -93,9 +93,9 @@ void    make_matrix(t_fdf *fdf, char* save)
     }
 }
 
-void    read_file(t_fdf *fdf, char *save)
+void    read_str_to_t_fdf(t_fdf *fdf, char *save)
 {
-    printf("in read_file :\n%s\n", save);
+    printf("in read_str_to_t_fdf :\n%s\n", save);
     fdf->x = count_axis(save);
     fdf->y = count_ordinary(save);
     printf("axis is %d\n", fdf->x);
