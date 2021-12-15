@@ -34,7 +34,7 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
     // draw line by step
     while((int)(dot_a.x - dot_b.x) || (int)(dot_a.y - dot_b.y))
     {
-        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, 0x00FF00);
+        mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, dot_a.color);
         dot_a.x += x_step;
         dot_a.y += y_step;
     }

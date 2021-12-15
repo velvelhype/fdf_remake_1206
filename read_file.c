@@ -59,6 +59,14 @@ int    get_height(char *save, int *bookmark)
     return  height;
 }
 
+int    get_color(char *save, int *bookmark)
+{
+    while(*(save + *bookmark) != ' ')
+        (*bookmark)++;
+
+    return  (0);
+}
+
 void    make_matrix(t_fdf *fdf, char* save)
 {
     fdf->points = (t_point**)malloc(sizeof(t_point*) * fdf->y);
@@ -84,8 +92,15 @@ void    make_matrix(t_fdf *fdf, char* save)
         {
             printf("m_m y:%d, x:%d bm:%d\n", y_count, x_count, bookmark);
             (fdf->points)[y_count][x_count].height = get_height(save, &bookmark);
-            (fdf->points)[y_count][x_count].x =  x_count;
-            (fdf->points)[y_count][x_count].y =  y_count;
+            if(save[bookmark]  == ',')
+            {
+                printf("has color\n");
+                (fdf->points)[y_count][x_count].color = get_color(save, &bookmark);
+            }
+            else
+                (fdf->points)[y_count][x_count].color == 0xFFFFFF;
+            (fdf->points)[y_count][x_count].x = x_count;
+            (fdf->points)[y_count][x_count].y = y_count;
             x_count++;
         }
         y_count++;

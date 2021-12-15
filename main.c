@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 
     t_fdf   fdf;
     fdf.mlx_ptr = mlx_init();
-    fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, 1000, 1000, "Ikari Window");
+    fdf.win_ptr = mlx_new_window(fdf.mlx_ptr, 1600, 1000, "Ikari Window");
     //init fdf datas
     fdf.rotation = 1;
     fdf.shift_x = 300;
@@ -54,11 +54,10 @@ int main(int argc, char **argv)
         i++;
         read_ret = read(fd, buf, 1);
     }
+    printf("save is \n %s\n", save);
     read_str_to_t_fdf(&fdf, save);
-    //
     draw(&fdf);
 	mlx_hook(fdf.win_ptr, 2, 0, deal_key, &fdf);
-    // mlx_key_hook(fdf.win_ptr, deal_key, &fdf);
     mlx_loop(fdf.mlx_ptr);
     //printf("x : %d y : %d\n", fdf.x, fdf.y);
 }
