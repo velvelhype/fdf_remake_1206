@@ -91,7 +91,7 @@ int    get_color(char *save, int *bookmark)
     *(save + *bookmark) != '\n' &&
     *(save + *bookmark) != '\0')
     {
-        printf("watch %c\n", *(save + *bookmark));
+        // printf("watch %c\n", *(save + *bookmark));
         i = char_xtoi(*(save + *bookmark), i);
         (*bookmark)++;
     }
@@ -122,11 +122,11 @@ void    make_matrix(t_fdf *fdf, char* save)
     {
         while(x_count < fdf->x)
         {
-            printf("m_m y:%d, x:%d bm:%d\n", y_count, x_count, bookmark);
+            // printf("m_m y:%d, x:%d bm:%d\n", y_count, x_count, bookmark);
             (fdf->points)[y_count][x_count].height = get_height(save, &bookmark);
             if(save[bookmark]  == ',')
             {
-                printf("has color\n");
+                // printf("has color\n");
                 (fdf->points)[y_count][x_count].color = get_color(save, &bookmark);
             }
             else
@@ -142,7 +142,7 @@ void    make_matrix(t_fdf *fdf, char* save)
 
 void    read_str_to_t_fdf(t_fdf *fdf, char *save)
 {
-    printf("in read_str_to_t_fdf :\n%s\n", save);
+    // printf("in read_str_to_t_fdf :\n%s\n", save);
     fdf->x = count_axis(save);
     fdf->y = count_ordinary(save);
     printf("axis is %d\n", fdf->x);

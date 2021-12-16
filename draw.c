@@ -50,7 +50,7 @@ int     make_color_step(int   a_color, int  b_color, int max)
 
 void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 {
-    //make dramatic
+    // make dramatic
     dot_a.height *= 10;
     dot_b.height *= 10;
 

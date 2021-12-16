@@ -35,9 +35,6 @@ int main(int argc, char **argv)
 
     int i = 0;
     int read_ret;
-    char buf[1];
-    char save[1000000];
-    read_ret = read(fd, buf, 1);
 
     t_fdf   fdf;
     fdf.mlx_ptr = mlx_init();
@@ -48,6 +45,10 @@ int main(int argc, char **argv)
     fdf.shift_y = 200;
     fdf.zoom = 20;
     //make t_fdf
+    char buf[1];
+    char *save;
+    save = (char*)malloc(sizeof(char)*1000000);
+    read_ret = read(fd, buf, 1);
     while(read_ret)
     {
         save[i] = *buf;
