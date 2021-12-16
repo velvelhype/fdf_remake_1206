@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 
 	char	*save;
 	save = file_to_str(argv);
-	// printf("save is \n %s\n", save);
+	printf("save is \n %s\n", save);
 	t_fdf	fdf;
 	init_fdf(&fdf);
 	str_to_t_fdf(&fdf, save);

@@ -6,7 +6,7 @@ char    *file_to_str(char **argv)
 	fd =  open(argv[1], O_RDONLY);
 	char *save;
 	char buf[1];
-	save = (char*)malloc(sizeof(char)*100000000);
+	save = (char*)malloc(sizeof(char)*50000000);
 	int read_ret;
 	read_ret = read(fd, buf, 1);
 	int i = 0;
@@ -30,7 +30,7 @@ int     count_axis(char    *save)
 	{
 		if(ft_isdigit(*save))
 			axis++;
-		while(ft_isdigit(*save))
+		while(ft_isascii(*save) && *save != ' ')
 		{
 			save++;
 			if(*save == '\n')
@@ -80,7 +80,7 @@ int    get_height(char *save, int *bookmark)
 	return  height;
 }
 
-int     char_xtoi(char a, int color)
+int		char_xtoi(char a, int color)
 {
 	// printf("c_a:: c%c h:%d\n", a, height);
 	if(a == 'A')
@@ -98,7 +98,6 @@ int     char_xtoi(char a, int color)
 	else
 		a = a - 48;
 	color = color * 16 + a;
-
 	return (color);
 }
 
@@ -147,7 +146,6 @@ void    make_matrix(t_fdf *fdf, char* save)
 			(fdf->points)[y_count][x_count].height = get_height(save, &bookmark);
 			if(save[bookmark]  == ',')
 			{
-				// printf("has color\n");
 				(fdf->points)[y_count][x_count].color = get_color(save, &bookmark);
 			}
 			else
@@ -159,6 +157,7 @@ void    make_matrix(t_fdf *fdf, char* save)
 		y_count++;
 		x_count = 0;
 	}
+	printf(" x %d y is %d\n", fdf->x, fdf->y);
 }
 
 void    str_to_t_fdf(t_fdf *fdf, char *save)
@@ -169,5 +168,5 @@ void    str_to_t_fdf(t_fdf *fdf, char *save)
 	// printf("axis is %d\n", fdf->x);
 	// printf("ordinary is %d\n", fdf->y);
 	make_matrix(fdf, save);
-	printf_point_matrix(fdf);
+	// printf_point_matrix(fdf);
 }
