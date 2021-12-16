@@ -10,15 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = fdf
 CC = gcc
 # CFLAGS = -Werror -Wall -Wextra
 CFLAGS = 
 SRCS = main.c \
-read_file.c \
+str_to_t_fdf.c \
 check.c \
 draw.c \
-# draw.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -40,4 +39,4 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-	make re -C libft
+	make

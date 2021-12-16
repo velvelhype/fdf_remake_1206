@@ -12,23 +12,6 @@
 #include "minilibx_macos/mlx.h"
 #include "get_next_line/get_next_line.h"
 
-// typedef struct  s_fdf
-// {
-//     int width;
-//     int height;
-//     int **z_matrix;
-//     int zoom;
-//     int color;
-//     int shift_x;
-//     int shift_y;
-//     float rotation;
-//     int twod_or_not_twod;
-//     float maware;
-
-//     void *mlx_ptr;
-//     void *win_ptr;
-// }       fdf;
-
 typedef struct s_point
 {
     int height;
@@ -43,7 +26,6 @@ typedef struct s_fdf
     int     y;
     float   rotation;
     t_point **points;
-    int     grid_len;
     void    *mlx_ptr;
     void    *win_ptr;
     double  lean_x;
@@ -60,13 +42,11 @@ typedef struct s_color
 	int blue;
 } t_color;
 
-void    read_str_to_t_fdf(t_fdf *fdf, char *save);
-
+char    *file_to_str(char **argv);
+void    str_to_t_fdf(t_fdf *fdf, char *save);
 void    draw(t_fdf *fdf);
-
 //checks
 void    printf_point_matrix(t_fdf   *fdf);
-
 int get_next_line(int fd, char **line);
 
 #endif
