@@ -16,8 +16,8 @@ typedef struct s_point
 {
     int height;
     int color;
-    int x;
-    int y;
+    float x;
+    float y;
 } t_point;
 
 typedef struct s_fdf

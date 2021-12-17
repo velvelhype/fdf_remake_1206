@@ -20,7 +20,7 @@ int	deal_key(int key, t_fdf *fdf)
 		exit(1);
 	// mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	draw(fdf);
-	return (0) ;
+	return (0);
 }
 
 void    init_fdf(t_fdf  *fdf)
@@ -36,7 +36,6 @@ void    init_fdf(t_fdf  *fdf)
 
 int main(int argc, char **argv)
 {
-
 	if(argc != 2)
 		exit(1);
 
@@ -47,6 +46,7 @@ int main(int argc, char **argv)
 	init_fdf(&fdf);
 	str_to_t_fdf(&fdf, save);
 	draw(&fdf);
+
 	mlx_hook(fdf.win_ptr, 2, 0, deal_key, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 }

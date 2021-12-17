@@ -74,7 +74,6 @@ void	paint_it_black(t_fdf *fdf)
     int endian;
     char *buffer = mlx_get_data_addr(fdf->image,
     &pixel_bits, &line_bytes, &endian);
-
     int color = 0x000000;
 
     if (pixel_bits != 32)
@@ -102,7 +101,6 @@ void	paint_it_black(t_fdf *fdf)
             }
 		}
 }
-
 
 void	my_pixel_put(t_fdf *fdf, t_point dot_a)
 {
@@ -166,7 +164,8 @@ void    draw(t_fdf *fdf)
 {
 	// fdf->lean_x = 0.6;
 	// fdf->lean_y = 0.6;
-	printf("deaw1\n");
+	// printf("deaw1\n");
+
 	paint_it_black(fdf);
 	int x = 0;
 	int y = 0;    
