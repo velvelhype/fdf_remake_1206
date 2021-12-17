@@ -110,7 +110,7 @@ void	my_pixel_put(t_fdf *fdf, t_point dot_a)
     char *buffer = mlx_get_data_addr(fdf->image,
     &pixel_bits, &line_bytes, &endian);
 
-    int color = 0xABCDEF;
+    int color = dot_a.color;
 
     if (pixel_bits != 32)
         color = mlx_get_color_value(fdf->mlx_ptr, color);

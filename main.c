@@ -4,6 +4,10 @@ int	deal_key(int key, t_fdf *fdf)
 {
 	printf("%d\n", key);
 
+	if (key == 14)
+		fdf->rotation += 0.03;
+	if (key == 15)
+		fdf->rotation -= 0.03;
 	if (key == 24)
 		fdf->zoom += 1;
 	if (key == 27)
