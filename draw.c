@@ -67,6 +67,80 @@ void    coordinate_point(t_fdf *fdf, t_point *dot_a, t_point *dot_b)
 	dot_b->y += fdf->shift_y;
 }
 
+void	paint_it_black(t_fdf *fdf)
+{
+	int pixel_bits;
+    int line_bytes;
+    int endian;
+    char *buffer = mlx_get_data_addr(fdf->image,
+    &pixel_bits, &line_bytes, &endian);
+
+    int color = 0x000000;
+
+    if (pixel_bits != 32)
+        color = mlx_get_color_value(fdf->mlx_ptr, color);
+
+    for(int y = 0; y < 1600; ++y)
+        for(int x = 0; x < 1000; ++x)
+        {
+            int pixel = ((int)x * line_bytes) + ((int)y * 4);
+
+            if (endian == 1)        // Most significant (Alpha) byte first
+            {
+                buffer[pixel + 0] = (color >> 24);
+                buffer[pixel + 1] = (color >> 16) & 0xFF;
+                buffer[pixel + 2] = (color >> 8) & 0xFF;
+                buffer[pixel + 3] = (color) & 0xFF;
+            }
+            else 
+			if (endian == 0)   // Least significant (Blue) byte first
+            {
+                buffer[pixel + 0] = (color) & 0xFF;
+                buffer[pixel + 1] = (color >> 8) & 0xFF;
+                buffer[pixel + 2] = (color >> 16) & 0xFF;
+                buffer[pixel + 3] = (color >> 24);
+            }
+		}
+}
+
+
+void	my_pixel_put(t_fdf *fdf, t_point dot_a)
+{
+	int pixel_bits;
+    int line_bytes;
+    int endian;
+    char *buffer = mlx_get_data_addr(fdf->image,
+    &pixel_bits, &line_bytes, &endian);
+
+    int color = 0xABCDEF;
+
+    if (pixel_bits != 32)
+        color = mlx_get_color_value(fdf->mlx_ptr, color);
+
+    // for(int y = 0; y < 1000; ++y)
+    //     for(int x = 0; x < 1600; ++x)
+    //     {
+            int pixel = ((int)dot_a.y * line_bytes) + ((int)dot_a.x * 4);
+
+            if (endian == 1)        // Most significant (Alpha) byte first
+            {
+                buffer[pixel + 0] = (color >> 24);
+                buffer[pixel + 1] = (color >> 16) & 0xFF;
+                buffer[pixel + 2] = (color >> 8) & 0xFF;
+                buffer[pixel + 3] = (color) & 0xFF;
+            }
+            else 
+			if (endian == 0)   // Least significant (Blue) byte first
+            {
+                buffer[pixel + 0] = (color) & 0xFF;
+                buffer[pixel + 1] = (color >> 8) & 0xFF;
+                buffer[pixel + 2] = (color >> 16) & 0xFF;
+                buffer[pixel + 3] = (color >> 24);
+            }
+		// }
+}
+
+
 void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 {
 	coordinate_point(fdf, &dot_a, &dot_b);
@@ -80,7 +154,8 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 	// draw line by step
 	while ((int)(dot_a.x - dot_b.x) || (int)(dot_a.y - dot_b.y))
 	{
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, dot_a.color);
+		// mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, dot_a.x, dot_a.y, dot_a.color);
+		my_pixel_put(fdf, dot_a);
 		dot_a.x += x_step;
 		dot_a.y += y_step;
 		dot_a.color += color_step;
@@ -91,6 +166,8 @@ void    draw(t_fdf *fdf)
 {
 	// fdf->lean_x = 0.6;
 	// fdf->lean_y = 0.6;
+	printf("deaw1\n");
+	paint_it_black(fdf);
 	int x = 0;
 	int y = 0;    
 	while (y < fdf->y)
@@ -106,4 +183,5 @@ void    draw(t_fdf *fdf)
 		x = 0;
 		y++;  
 	}
+    mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->image, 0, 0);
 }

@@ -16,8 +16,8 @@ typedef struct s_point
 {
     int height;
     int color;
-    float x;
-    float y;
+    int x;
+    int y;
 } t_point;
 
 typedef struct s_fdf
@@ -28,6 +28,7 @@ typedef struct s_fdf
     t_point **points;
     void    *mlx_ptr;
     void    *win_ptr;
+    void    *image;
     double  lean_x;
     double  lean_y;
     int     shift_x;

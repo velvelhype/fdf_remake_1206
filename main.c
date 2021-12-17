@@ -1,25 +1,25 @@
 #include "fdf.h"
 
-int	deal_key(int key, t_fdf *data)
+int	deal_key(int key, t_fdf *fdf)
 {
 	printf("%d\n", key);
 
 	if (key == 24)
-		data->zoom += 1;
+		fdf->zoom += 1;
 	if (key == 27)
-		data->zoom -= 1;
+		fdf->zoom -= 1;
 	if (key == 126)
-		data->shift_y -= 40;
+		fdf->shift_y -= 40;
 	if (key == 125)
-		data->shift_y += 40;
+		fdf->shift_y += 40;
 	if (key == 123)
-		data->shift_x -= 40;
+		fdf->shift_x -= 40;
 	if (key == 124)
-		data->shift_x += 40;
+		fdf->shift_x += 40;
 	if (key == 53)
 		exit(1);
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	draw(data);
+	// mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+	draw(fdf);
 	return (0) ;
 }
 
@@ -27,6 +27,7 @@ void    init_fdf(t_fdf  *fdf)
 {
 	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1600, 1000, "Ikari Window");
+    fdf->image = mlx_new_image(fdf->mlx_ptr, 1600, 1000);
 	fdf->rotation = 1;
 	fdf->shift_x = 700;
 	fdf->shift_y = 500;

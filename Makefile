@@ -12,12 +12,12 @@
 
 NAME = fdf
 CC = gcc
-# CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 CFLAGS = 
-SRCS = main.c \
-str_to_t_fdf.c \
+SRCS = str_to_t_fdf.c \
 check.c \
 draw.c \
+main.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -39,4 +39,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-	make
