@@ -4,6 +4,10 @@ int	deal_key(int key, t_fdf *fdf)
 {
 	printf("%d\n", key);
 
+	if (key == 20)
+		fdf->is_threeD = 1;
+	if (key == 19)
+		fdf->is_threeD = 0;
 	if (key == 14)
 		fdf->rotation += 0.03;
 	if (key == 15)
@@ -32,6 +36,7 @@ void    init_fdf(t_fdf  *fdf)
 	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1600, 1000, "Ikari Window");
     fdf->image = mlx_new_image(fdf->mlx_ptr, 1600, 1000);
+	fdf->is_threeD = 1;
 	fdf->rotation = 1;
 	fdf->shift_x = 700;
 	fdf->shift_y = 500;

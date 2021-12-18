@@ -24,6 +24,7 @@ typedef struct s_fdf
 {
     int     x;
     int     y;
+    int     is_threeD;
     float   rotation;
     t_point **points;
     void    *mlx_ptr;

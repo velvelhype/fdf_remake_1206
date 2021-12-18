@@ -45,6 +45,7 @@ int     make_color_step(int   a_color, int  b_color, int max)
 void    make_isometric(t_point *dot, t_fdf *fdf)
 {
 	dot->x = (dot->x - dot->y) * cos(fdf->rotation);
+	// dot->y = (dot->x + dot->y) * sin(fdf->rotation);
 	dot->y = (dot->x + dot->y) * sin(fdf->rotation) - dot->height;
 }
 
@@ -58,8 +59,11 @@ void    coordinate_point(t_fdf *fdf, t_point *dot_a, t_point *dot_b)
 	dot_a->height  *= fdf->zoom;
 	dot_b->height  *= fdf->zoom;
 	//make isometrical
-	make_isometric(dot_a, fdf);
-	make_isometric(dot_b, fdf);
+	if (fdf->is_threeD)
+	{
+		make_isometric(dot_a, fdf);
+		make_isometric(dot_b, fdf);
+	}
 	//add positional shift to points for viewablility
 	dot_a->x += fdf->shift_x;
 	dot_b->x += fdf->shift_x;
@@ -115,6 +119,10 @@ void	my_pixel_put(t_fdf *fdf, t_point dot_a)
     if (pixel_bits != 32)
         color = mlx_get_color_value(fdf->mlx_ptr, color);
 
+	if(dot_a.x > 1600 || dot_a.y > 1000)
+		return ;
+	if(dot_a.x < 0 || dot_a.y < 0)
+		return ;
     // for(int y = 0; y < 1000; ++y)
     //     for(int x = 0; x < 1600; ++x)
     //     {

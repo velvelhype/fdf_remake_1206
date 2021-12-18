@@ -2,6 +2,10 @@
     "files.associations": {
         "fdf.h": "c",
         "algorithm": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "cstdlib": "c",
+        "locale": "c",
+        "ostream": "c",
+        "new": "c"
     }
 }
