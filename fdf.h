@@ -49,6 +49,9 @@ int		count_axis(char	*save);
 int		count_ordinary(char *save);
 int		get_height(char *save, int *bookmark);
 void	draw(t_fdf *fdf);
+void	paint_it_black(t_fdf *fdf);
+void	my_pixel_put(t_fdf *fdf, t_point dot_a);
+int		make_color_step(int a_color, int b_color, int max);
 void	printf_point_matrix(t_fdf *fdf);
 
 #endif

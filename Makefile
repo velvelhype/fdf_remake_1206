@@ -12,13 +12,14 @@
 
 NAME = fdf
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra
-CFLAGS = 
+# CFLAGS = -Werror -Wall -Wextra
 SRCS = file_to_str.c \
 str_to_t_fdf.c \
 str_to_t_fdf_utils.c \
 check.c \
 draw.c \
+draw_make_color.c \
+draw_make_image.c \
 main.c \
 
 OBJS = $(SRCS:.c=.o)

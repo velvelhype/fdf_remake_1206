@@ -87,4 +87,5 @@ void	str_to_t_fdf(t_fdf *fdf, char *save)
 	fdf->x = count_axis(save);
 	fdf->y = count_ordinary(save);
 	make_matrix(fdf, save);
+	free(save);
 }

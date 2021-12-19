@@ -2,7 +2,7 @@
 
 void	ft_strncpy(char *dst, char *src, size_t	n)
 {
-	while(n > 0)
+	while (n > 0)
 	{
 		dst[n - 1] = src[n - 1];
 		n--;
@@ -11,18 +11,20 @@ void	ft_strncpy(char *dst, char *src, size_t	n)
 
 char	*read_to_save(int fd, int stack_size, char *save)
 {
-	int read_ret;
-	char buf[1];
-	read_ret = read(fd, buf, 1);
+	int		read_ret;
+	char	buf[1];
 	size_t	i;
-	i = 0;
-	char *new;
+	char	*new;
 
-	while(read_ret)
+	read_ret = read(fd, buf, 1);
+	i = 0;
+	while (read_ret)
 	{
-		if((i % stack_size) == 0)
+		if ((i % stack_size) == 0)
 		{
-			new = (char*)malloc(sizeof(char) * (i + stack_size + 1));
+			new = (char *)malloc(sizeof(char) * (i + stack_size + 1));
+			if(!new)
+				exit(1);
 			ft_strncpy(new, save, i);
 			free(save);
 			save = new;
@@ -35,16 +37,18 @@ char	*read_to_save(int fd, int stack_size, char *save)
 	return (save);
 }
 
-char    *file_to_str(char **argv)
+char	*file_to_str(char **argv)
 {
-	int fd;
-	int	stack_size;
-	char *save;
+	int		fd;
+	int		stack_size;
+	char	*save;
 
 	fd = 0;
 	stack_size = 50000;
-	fd =  open(argv[1], O_RDONLY);
-	save = (char*)malloc(sizeof(char) * stack_size + 1);
+	fd = open(argv[1], O_RDONLY);
+	save = (char *)malloc(sizeof(char) * stack_size + 1);
+	if(!save)
+		exit(1);
 	save = read_to_save(fd, stack_size, save);
-	return  (save);
+	return (save);
 }
