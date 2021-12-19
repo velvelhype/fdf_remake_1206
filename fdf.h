@@ -10,7 +10,7 @@
 #include "libft/libft.h"
 #include <OpenGL/gl.h>
 #include "minilibx_macos/mlx.h"
-#include "get_next_line/get_next_line.h"
+// #include "get_next_line/get_next_line.h"
 
 typedef struct s_point
 {
@@ -49,6 +49,6 @@ void    str_to_t_fdf(t_fdf *fdf, char *save);
 void    draw(t_fdf *fdf);
 //checks
 void    printf_point_matrix(t_fdf   *fdf);
-int get_next_line(int fd, char **line);
+// int get_next_line(int fd, char **line);
 
 #endif

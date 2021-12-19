@@ -45,17 +45,15 @@ void    init_fdf(t_fdf  *fdf)
 
 int main(int argc, char **argv)
 {
+	char	*save;
+	t_fdf	fdf;
+
 	if(argc != 2)
 		exit(1);
-
-	char	*save;
 	save = file_to_str(argv);
-	printf("save is \n %s\n", save);
-	t_fdf	fdf;
 	init_fdf(&fdf);
 	str_to_t_fdf(&fdf, save);
 	draw(&fdf);
-
 	mlx_hook(fdf.win_ptr, 2, 0, deal_key, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 }

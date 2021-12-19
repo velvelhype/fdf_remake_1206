@@ -1,17 +1,37 @@
 #include "fdf.h"
+#include <string.h>
+
+void	ft_strncpy(char *dst, char *src, size_t	n)
+{
+	while(n > 0)
+	{
+		dst[n - 1] = src[n - 1];
+		n--;
+	}
+}
 
 char    *file_to_str(char **argv)
 {
 	int fd = 0;
+	int	stack_size = 50000;
 	fd =  open(argv[1], O_RDONLY);
 	char *save;
+	save = (char*)malloc(sizeof(char) * stack_size + 1);
 	char buf[1];
-	save = (char*)malloc(sizeof(char)*50000000);
 	int read_ret;
 	read_ret = read(fd, buf, 1);
-	int i = 0;
+	size_t i = 0;
+	char *new;
+	//malloc
 	while(read_ret)
 	{
+		if((i % stack_size) == 0)
+		{
+			new = (char*)malloc(sizeof(char) * (i + stack_size + 1));
+			ft_strncpy(new, save, i);
+			free(save);
+			save = new;
+		}
 		save[i] = *buf;
 		i++;
 		read_ret = read(fd, buf, 1);
@@ -157,7 +177,6 @@ void    make_matrix(t_fdf *fdf, char* save)
 		y_count++;
 		x_count = 0;
 	}
-	printf(" x %d y is %d\n", fdf->x, fdf->y);
 }
 
 void    str_to_t_fdf(t_fdf *fdf, char *save)

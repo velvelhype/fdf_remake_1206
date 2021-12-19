@@ -80,8 +80,8 @@ void	paint_it_black(t_fdf *fdf)
     &pixel_bits, &line_bytes, &endian);
     int color = 0x000000;
 
-    if (pixel_bits != 32)
-        color = mlx_get_color_value(fdf->mlx_ptr, color);
+    // if (pixel_bits != 32)
+    //     color = mlx_get_color_value(fdf->mlx_ptr, color);
 
     for(int y = 0; y < 1600; ++y)
         for(int x = 0; x < 1000; ++x)
@@ -116,8 +116,8 @@ void	my_pixel_put(t_fdf *fdf, t_point dot_a)
 
     int color = dot_a.color;
 
-    if (pixel_bits != 32)
-        color = mlx_get_color_value(fdf->mlx_ptr, color);
+    // if (pixel_bits != 32)
+    //     color = mlx_get_color_value(fdf->mlx_ptr, color);
 
 	if(dot_a.x > 1600 || dot_a.y > 1000)
 		return ;
@@ -131,16 +131,16 @@ void	my_pixel_put(t_fdf *fdf, t_point dot_a)
             if (endian == 1)        // Most significant (Alpha) byte first
             {
                 buffer[pixel + 0] = (color >> 24);
-                buffer[pixel + 1] = (color >> 16) & 0xFF;
-                buffer[pixel + 2] = (color >> 8) & 0xFF;
-                buffer[pixel + 3] = (color) & 0xFF;
+                buffer[pixel + 1] = (color >> 16) & 0xFFFFFF;
+                buffer[pixel + 2] = (color >> 8) & 0xFFFFFF;
+                buffer[pixel + 3] = (color) & 0xFFFFFF;
             }
             else 
 			if (endian == 0)   // Least significant (Blue) byte first
             {
-                buffer[pixel + 0] = (color) & 0xFF;
-                buffer[pixel + 1] = (color >> 8) & 0xFF;
-                buffer[pixel + 2] = (color >> 16) & 0xFF;
+                buffer[pixel + 0] = (color) & 0xFFFFFF;
+                buffer[pixel + 1] = (color >> 8) & 0xFFFFFF;
+                buffer[pixel + 2] = (color >> 16) & 0xFFFFFF;
                 buffer[pixel + 3] = (color >> 24);
             }
 		// }
