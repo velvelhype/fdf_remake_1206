@@ -2,8 +2,6 @@
 
 int	deal_key(int key, t_fdf *fdf)
 {
-	printf("%d\n", key);
-
 	if (key == 20)
 		fdf->is_threeD = 1;
 	if (key == 19)
@@ -26,29 +24,28 @@ int	deal_key(int key, t_fdf *fdf)
 		fdf->shift_x += 40;
 	if (key == 53)
 		exit(1);
-	// mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	draw(fdf);
 	return (0);
 }
 
-void    init_fdf(t_fdf  *fdf)
+void	init_fdf(t_fdf *fdf)
 {
 	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1600, 1000, "Ikari Window");
-    fdf->image = mlx_new_image(fdf->mlx_ptr, 1600, 1000);
+	fdf->image = mlx_new_image(fdf->mlx_ptr, 1600, 1000);
 	fdf->is_threeD = 1;
 	fdf->rotation = 1;
 	fdf->shift_x = 700;
 	fdf->shift_y = 500;
-	fdf->zoom = 10;   
+	fdf->zoom = 10;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	char	*save;
 	t_fdf	fdf;
 
-	if(argc != 2)
+	if (argc != 2)
 		exit(1);
 	save = file_to_str(argv);
 	init_fdf(&fdf);

@@ -170,13 +170,12 @@ void    draw_line(t_fdf *fdf, t_point dot_a, t_point dot_b)
 
 void    draw(t_fdf *fdf)
 {
-	// fdf->lean_x = 0.6;
-	// fdf->lean_y = 0.6;
-	// printf("deaw1\n");
+	int	x;
+	int	y;
 
+	x = 0;
+	y = 0;    
 	paint_it_black(fdf);
-	int x = 0;
-	int y = 0;    
 	while (y < fdf->y)
 	{
 		while (x < fdf->x)
@@ -190,5 +189,5 @@ void    draw(t_fdf *fdf)
 		x = 0;
 		y++;  
 	}
-    mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->image, 0, 0);
+    mlx_put_image_to_window (fdf->mlx_ptr, fdf->win_ptr, fdf->image, 0, 0);
 }

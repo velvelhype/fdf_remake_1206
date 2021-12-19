@@ -14,7 +14,9 @@ NAME = fdf
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
 CFLAGS = 
-SRCS = str_to_t_fdf.c \
+SRCS = file_to_str.c \
+str_to_t_fdf.c \
+str_to_t_fdf_utils.c \
 check.c \
 draw.c \
 main.c \
