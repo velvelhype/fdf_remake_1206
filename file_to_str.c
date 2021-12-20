@@ -23,7 +23,7 @@ char	*read_to_save(int fd, int stack_size, char *save)
 		if ((i % stack_size) == 0)
 		{
 			new = (char *)malloc(sizeof(char) * (i + stack_size + 1));
-			if(!new)
+			if (!new)
 				exit(1);
 			ft_strncpy(new, save, i);
 			free(save);
@@ -47,7 +47,7 @@ char	*file_to_str(char **argv)
 	stack_size = 50000;
 	fd = open(argv[1], O_RDONLY);
 	save = (char *)malloc(sizeof(char) * stack_size + 1);
-	if(!save)
+	if (!save)
 		exit(1);
 	save = read_to_save(fd, stack_size, save);
 	return (save);

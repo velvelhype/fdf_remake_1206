@@ -31,7 +31,7 @@ int	deal_key(int key, t_fdf *fdf)
 void	init_fdf(t_fdf *fdf)
 {
 	fdf->mlx_ptr = mlx_init();
-	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1600, 1000, "Ikari Window");
+	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, 1600, 1000, "fdf");
 	fdf->image = mlx_new_image(fdf->mlx_ptr, 1600, 1000);
 	fdf->is_threeD = 1;
 	fdf->rotation = 1;

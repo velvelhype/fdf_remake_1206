@@ -1,68 +1,44 @@
 #include "fdf.h"
 
+void	put_pix(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_len + x * (data->pix_bits / 8));
+	*(unsigned int *)dst = color;
+}
+
 void	paint_it_black(t_fdf *fdf)
 {
-	int		pixel_bits;
-	int		line_bytes;
-	int		endian;
-	char	*buffer;
+	t_data	im;
+	int		color;
+	int		x;
+	int		y;
 
-	buffer = mlx_get_data_addr(fdf->image, &pixel_bits, &line_bytes, &endian);
-    int color;
-
+	im.img = fdf->image;
+	im.addr = mlx_get_data_addr(im.img, &im.pix_bits, &im.line_len, &im.endi);
 	color = 0x000000;
-    for(int y = 0; y < 1600; ++y)
-        for(int x = 0; x < 1000; ++x)
-        {
-            int pixel = ((int)x * line_bytes) + ((int)y * 4);
-			// if (endian == 1)
-			// {
-			//     buffer[pixel + 0] = (color >> 24);
-			//     buffer[pixel + 1] = (color >> 16) & 0xFF;
-			//     buffer[pixel + 2] = (color >> 8) & 0xFF;
-			//     buffer[pixel + 3] = (color) & 0xFF;
-			// }
-			// else 
-			if (endian == 0)
-			{
-			    buffer[pixel + 0] = (color) & 0xFF;
-			    buffer[pixel + 1] = (color >> 8) & 0xFF;
-			    buffer[pixel + 2] = (color >> 16) & 0xFF;
-			    buffer[pixel + 3] = (color >> 24);
-			}
+	x = -1;
+	y = -1;
+	while (y++ <= 1000)
+	{
+		while (x++ <= 1600)
+		{
+			put_pix(&im, x, y, color);
 		}
+		x = 0;
+	}
 }
 
 void	my_pixel_put(t_fdf *fdf, t_point dot_a)
 {
-	int		pixel_bits;
-    int		line_bytes;
-    int		endian;
-    char	*buffer;
-	int		color;
+	t_data	im;
 
-	buffer = mlx_get_data_addr(fdf->image,
-    &pixel_bits, &line_bytes, &endian);
-    color = dot_a.color;
-	if (dot_a.x > 1600 || dot_a.y > 1000)
+	if (dot_a.x < 0 || dot_a.x > 1600)
 		return ;
-	if (dot_a.x <= 0 || dot_a.y <= 0)
+	if (dot_a.y < 0 || dot_a.y > 1000)
 		return ;
-    int pixel;
-	pixel = ((int)dot_a.y * line_bytes) + ((int)dot_a.x * 4);
-    // if (endian == 1)
-    // {
-	// 	buffer[pixel + 0] = (color >> 24);
-	// 	buffer[pixel + 1] = (color >> 16) & 0xFFFFFF;
-	// 	buffer[pixel + 2] = (color >> 8) & 0xFFFFFF;
-	// 	buffer[pixel + 3] = (color) & 0xFFFFFF;
-    // }
-    // else
-	 if (endian == 0)
-	{
-		buffer[pixel + 0] = (color) & 0xFFFFFF;
-		buffer[pixel + 1] = (color >> 8) & 0xFFFFFF;
-		buffer[pixel + 2] = (color >> 16) & 0xFFFFFF;
-		buffer[pixel + 3] = (color >> 24);
-    }
+	im.img = fdf->image;
+	im.addr = mlx_get_data_addr(im.img, &im.pix_bits, &im.line_len, &im.endi);
+	put_pix(&im, dot_a.x, dot_a.y, dot_a.color);
 }

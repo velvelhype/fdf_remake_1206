@@ -11,6 +11,14 @@
 #include <OpenGL/gl.h>
 #include "minilibx_macos/mlx.h"
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		pix_bits;
+	int		line_len;
+	int		endi;
+}				t_data;
+
 typedef struct s_point
 {
 	int		height;
